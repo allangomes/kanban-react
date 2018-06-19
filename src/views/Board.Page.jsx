@@ -1,24 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { mapValues } from 'lib/ramda'
-import { api } from 'app/api'
-import { sortBy, prop } from 'ramda'
+import { map, sortBy, prop } from 'lodash/fp'
+import { refetch, urls } from 'app/api'
+import { mapProps } from 'recompose'
 import { from } from 'seamless-immutable'
 import { Segment, Label, Breadcrumb } from 'semantic-ui-react'
 import { ListList, DroppableSortableCardList } from 'components/list'
-import { connect as refetch } from 'react-refetch'
 import css from './Board.Page.scss'
 
-@connect(
-  (_, { match }) => ({
-    boardId: match.params.boardId
-  })
-)
+@mapProps(({ match }) => ({
+  boardId: match.params.boardId
+}))
 @refetch(({ boardId }) => ({
-  board: `${api.defaults.baseURL}/board/${boardId}`,
-  lists: `${api.defaults.baseURL}/board/${boardId}/list`,
-  cards: `${api.defaults.baseURL}/board/${boardId}/card`
+  board: urls.board(boardId),
+  lists: urls.lists(boardId),
+  cards: urls.cards(boardId)
 }))
 export class BoardPage extends React.PureComponent {
 
@@ -99,7 +95,7 @@ export class BoardPage extends React.PureComponent {
 
     const cardsOfList = (listId) => this.sort(cards.filter(card => card.listId == listId))
 
-    return mapValues((list) => {
+    return map((list) => {
       const filteredCards = cardsOfList(list.id)
       return (
         <ListList key={list.id} {...list} cards={filteredCards} loading={this.props.cards.pending} >

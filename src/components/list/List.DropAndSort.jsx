@@ -1,10 +1,10 @@
 import React from 'react'
 import { CardItemDraggable, CardItemPreview } from 'components/card/Card.Item.Drag'
 import { DropTarget } from 'react-dnd'
-import { throttle } from 'lodash'
+import { throttle } from 'lodash/fp'
 
 @DropTarget('CARD', {
-  hover: throttle((target, monitor: DropTargetMonitor, component) => {
+  hover: throttle(100, (target, monitor, component) => {
     const source = monitor.getItem()
 
     if (source == null) {
@@ -16,7 +16,7 @@ import { throttle } from 'lodash'
       source.listId = target.listId
       source.position = target.cards.length + 1
     }
-  }, 100)
+  })
 }, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isDragging: monitor.isOver()

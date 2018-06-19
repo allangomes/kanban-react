@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Label, Grid } from 'semantic-ui-react'
+import { Card, Label } from 'semantic-ui-react'
 import css from './Card.Item.scss'
 
 export const CardItem = ({ title, description, color }) => (

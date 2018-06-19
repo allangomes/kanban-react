@@ -1,11 +1,13 @@
 const path = require('path');
+const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 module.exports = {
   entry: [
+    'react-hot-loader/patch',
     '@babel/polyfill',
     './vendor.scss',
-    './index.js',
+    './index.jsx',
   ],
   mode: "development",
   devtool: "source-map",
@@ -15,8 +17,8 @@ module.exports = {
       'node_modules'
     ],
     alias: {
-      'redux': 'redux/es/redux',
-      "redux-saga": "redux-saga/es"
+      "react-router-dom": "react-router-dom/es",
+      "semantic-ui-react": "semantic-ui-react/dist/es"
     },
     extensions: ['.js', '.jsx']
   },
@@ -102,6 +104,7 @@ module.exports = {
     }
   },
   plugins: [
-    // new BundleAnalyzerPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new BundleAnalyzerPlugin()
   ]
 }

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Prompt } from 'react-router-dom'
+import { Prompt } from 'react-router-dom/es'
 import { Form, Dropdown, Button } from 'semantic-ui-react'
-import { COLORS } from 'semantic-ui-react/src/lib/SUI'
+import { COLORS } from 'semantic-ui-react/dist/es/lib/SUI'
 
 const colorOptions = COLORS.map(color => ({
   key: color,

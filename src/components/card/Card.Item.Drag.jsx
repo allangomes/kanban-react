@@ -1,6 +1,6 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
-import { throttle } from 'lodash'
+import { throttle } from 'lodash/fp'
 import { DropTarget, DragSource, DragLayer } from 'react-dnd'
 import { compose } from "recompose"
 import { CardItem } from './Card.Item'
@@ -10,17 +10,14 @@ const CardDragName = "CARD"
 
 @DropTarget(CardDragName, {
   //throttle for prevent call in exceeed.
-  hover: throttle((target, monitor: DropTargetMonitor, component) => {
+  hover: throttle(100, (target, monitor, component) => {
     const source = monitor.getItem()
-
     if (source == null) {
       return //prevent bug
     }
-
     if (source.listId !== target.listId) {
       return
     }
-
     // Prevent change position unnecessarily
     if (source.position == target.position) {
       return
@@ -56,11 +53,11 @@ const CardDragName = "CARD"
 
     // to prevent calling the setState() of the component multiple times, I make the mutation passing the new position to the source element
     source.position = target.position
-  }, 100),
+  }),
   drop(props) {
     props.onEndDrag && props.onEndDrag(props.id)
   }
-}, (connect: DropTargetConnector) => ({
+}, (connect) => ({
     connectDropTarget: connect.dropTarget(),
   })
 )

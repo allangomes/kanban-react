@@ -1,19 +1,18 @@
 import React from 'react'
 import { withFormik } from 'formik'
-import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import { Modal, Button, Icon } from 'semantic-ui-react'
 import { BoardForm as Form } from 'components/board'
-import { api } from 'app/api'
+import { api, urls } from 'app/api'
 
-async function saveBoard(board, component) {
-  const { props, setSubmitting, setErrors, resetForm } = component
-  const { history, dispatch } = props
+async function saveBoard(board, { setSubmitting, setErrors, resetForm, props }) {
+  const { history, backTo, onSaveSuccess } = props
+  console.log(props)
   try {
-    const { data } = await api.post('/board', board)
+    const { data } = await api.post(urls.boards, board)
     resetForm()
-    history.goBack('..')
-    dispatch({ type: 'BOARD/LOAD', payload: data })
+    history.goBack(backTo)
+    onSaveSuccess && onSaveSuccess(data)
   } catch (error) {
     setSubmitting(false)
     setErrors(error)
@@ -21,12 +20,6 @@ async function saveBoard(board, component) {
 }
 
 @withRouter
-@connect(
-  (state) => ({}),
-  (dispatch) => ({
-    dispatch: dispatch
-  })
-)
 @withFormik({
   mapPropsToValues: () => ({ color: 'grey' }),
   handleSubmit: saveBoard
