@@ -1,0 +1,31 @@
+
+.card {
+  margin: 0 !important;
+  margin-top: 5px !important;
+};
+
+.card_header {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.card_title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.card_labels {
+  max-width: 21%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card_preview {
+  user-select: none;
+  opacity: 0.8;
+  position: fixed;
+  top: 0;
+  left: 0;
+}

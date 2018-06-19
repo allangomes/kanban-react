@@ -1,0 +1,47 @@
+.root {
+  height: 100%;
+  display: flex;
+}
+ 
+.mainSegment {
+  display: flex;
+  flex: 1 1 auto;
+  background: #eee !important;
+}
+
+.mainSegment_content {
+  display: flex;
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+.list {
+  display: flex;
+  margin: 5px !important;
+  min-width: 250px !important;
+  flex: 1 1 1;
+  width: 400px;
+  max-width: 400px;
+
+  &:first-child {
+    margin-left: 0 !important;
+  }
+
+  &:last-child {
+    margin-right: 0 !important;
+  }
+}
+
+.list_header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.list_content {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  background: #eee !important;
+  flex: 1 1 auto;
+}

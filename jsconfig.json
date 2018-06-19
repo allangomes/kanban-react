@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "jsx": "react",
+    "disableSizeLimit": true,
+    "allowUnreachableCode": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "baseUrl": "./src",
+    "checkJs": true,
+    "paths": {
+      "*": [
+         "./*",
+        "../lib/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

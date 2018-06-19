@@ -1,0 +1,17 @@
+.root {
+  height: 100%;
+  display: flex;
+}
+ 
+.main_segment {
+  display: flex;
+  flex: 1 1 auto;
+  background: #eee !important;
+  padding: 15px;
+}
+
+.main_segment_scroller {
+  display: flex;
+  flex: 1 1 auto;
+  overflow: auto;
+}

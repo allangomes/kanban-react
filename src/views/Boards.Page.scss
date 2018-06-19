@@ -1,0 +1,10 @@
+.root {
+  height: 100%;
+  display: flex;
+}
+ 
+.main_segment {
+  flex: 1 1 auto;
+  overflow: auto;
+  background: #eee !important;
+}
