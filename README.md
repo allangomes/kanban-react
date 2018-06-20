@@ -10,6 +10,4 @@ The Kanban Application with multiple backend languages.
 ### Mobile
 ![Alt Text](https://raw.githubusercontent.com/allangomessl/kanban-react/87836254249d24b8e9df26d60ba43a2df7f91d68/docs/mobile.gif)
 
-### Roadmap
-- Suporte to Deletion
-- Suporte to Update Card Postion in backend
+### [Roadmap](https://github.com/allangomessl/kanban-react/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aroadmap+)
