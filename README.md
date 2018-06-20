@@ -8,7 +8,7 @@ The Kanban Application with multiple backend languages.
 
 
 ### Mobile
-![Alt Text](https://github.com/allangomessl/kanban-react/blob/master/docs/mobile.gif?raw=true)
+![Alt Text](https://raw.githubusercontent.com/allangomessl/kanban-react/87836254249d24b8e9df26d60ba43a2df7f91d68/docs/mobile.gif)
 
 ### Roadmap
 - Suporte to Deletion
