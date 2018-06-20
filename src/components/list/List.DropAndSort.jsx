@@ -19,16 +19,17 @@ import { throttle } from 'lodash/fp'
   })
 }, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
-  isDragging: monitor.isOver()
+  isOver: monitor.isOver()
 }))
 export class DroppableSortableCardList extends React.Component {
 
   renderCards() {
-    const { cards, onMoving, onBeginDrag, onEndDrag, isDragging, dragging } = this.props
+    const { cards, onMoving, onBeginDrag, onEndDrag, isOver, dragging } = this.props
     const elements = cards?.map(card => (
       <CardItemDraggable 
         {...card}
-        isDragging={isDragging && card.id == dragging} 
+        isDragging={isOver && card.id == dragging}
+        style={{ width: '100%' }}
         key={card.id} 
         moving={onMoving} 
         onBeginDrag={onBeginDrag}

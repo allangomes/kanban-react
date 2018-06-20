@@ -11,6 +11,5 @@ The Kanban Application with multiple backend languages.
 ![Alt Text](https://github.com/allangomessl/kanban-react/blob/master/docs/mobile.gif?raw=true)
 
 ### Roadmap
-- Suporte to List Form
-- Suporte to Card Form
+- Suporte to Deletion
 - Suporte to Update Card Postion in backend

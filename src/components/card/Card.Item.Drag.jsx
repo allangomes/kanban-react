@@ -1,4 +1,5 @@
 import React from 'react'
+import cls from 'classnames'
 import { findDOMNode } from 'react-dom'
 import { throttle } from 'lodash/fp'
 import { DropTarget, DragSource, DragLayer } from 'react-dnd'
@@ -62,36 +63,32 @@ const CardDragName = "CARD"
   })
 )
 @DragSource(CardDragName, {
-  beginDrag(props) {
+  beginDrag(props, _, component) {
+    const boundingRect = findDOMNode(component).getBoundingClientRect()
     props.onBeginDrag && props.onBeginDrag(props.id)
-    return {
-      id: props.id,
-      title: props.title,
-      listId: props.listId,
-      position: props.position
+    return { 
+      ...props,
+      boundingRect
     }
-  },
-  isDragging(...props) {
-    console.log("isDragging", ...props)
   },
   endDrag(props) {
     props.onEndDrag && props.onEndDrag(props.id)
   }
-}, (connect: DragSourceConnector, monitor: DragSourceMonitor) => ({
+}, (connect, monitor) => ({
     connectDragSource: connect.dragSource()
   })
 )
 export class CardItemDraggable extends React.PureComponent {
 
   render() {
-    const { connectDragSource, connectDropTarget, connectDragPreview, isDragging, ...props } = this.props
-    const opacity = isDragging ? 0 : 1
+    const { connectDragSource, connectDropTarget, connectDragPreview, isDragging, className, ...props } = this.props
+    const classes = cls(className, { [css.dragging]: isDragging } )
     return compose(
       connectDropTarget,
       connectDragSource
     )(
-      <div style={{ width: '100%', opacity }}>
-        <CardItem {...props} />
+      <div style={{ width: '100%' }}>
+        <CardItem className={classes} {...props} />
       </div>
     )
   }
@@ -103,10 +100,10 @@ function getItemStyles(currentOffset) {
           display: 'none'
       };
   }
-  // http://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/
+
   var x = currentOffset.x;
   var y = currentOffset.y;
-  var transform = `translate(${x}px, ${y}px)`;
+  var transform = `translate(${x}px, ${y}px) rotate(0.01turn)`;
 
   return {
     pointerEvents: 'none',
@@ -118,20 +115,17 @@ function getItemStyles(currentOffset) {
 @DragLayer((monitor) => {
   var item = monitor.getItem();
   return {
-      id: item && item.id,
-      title: item && item.title,
-      listId: item && item.listId,
-      position: item && item.position,
+      ...item,
       currentOffset: monitor.getSourceClientOffset()
   }
 })
 export class CardItemPreview extends React.Component {
 
   render() {
-    const { currentOffset, ...props } = this.props
+    const { currentOffset, boundingRect, ...props } = this.props
     return (
       <div className={css.card_preview} style={getItemStyles(currentOffset)}>
-        <CardItem {...props} />
+        <CardItem {...props} style={{ width: boundingRect?.width }} />
       </div>
     )
   }

@@ -3,7 +3,7 @@ import urlJoin from 'url-join'
 import { connect } from 'react-refetch'
 
 export const api = axios.create({
-  baseURL: "http://localhost:4000/api"
+  baseURL: "http://192.168.25.7:4000/api"
 })
 
 export const refetch = connect.defaults({

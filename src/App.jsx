@@ -8,7 +8,7 @@ import { BoardsPage } from './views/Boards.Page'
 import { BoardPage } from './views/Board.Page'
 
 export const App = () => (
-  <DragDropContextProvider backend={TouchBackend({ enableMouseEvents: true, enableKeyboardEvents: true })}>
+  <DragDropContextProvider backend={TouchBackend({ enableMouseEvents: true })}>
     <HashRouter>
       <Switch>
         <Redirect from="/" exact to="/boards" />
