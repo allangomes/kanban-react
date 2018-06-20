@@ -4,7 +4,7 @@ The Kanban Application with multiple backend languages.
 *this project is still under maintenance*
 
 ### Desktop
-![Alt Text](https://github.com/allangomessl/kanban-react/blob/master/docs/desktop.gif?raw=true)
+![Alt Text](https://raw.githubusercontent.com/allangomessl/kanban-react/f97c7ca0fe0933074edbd7eaa75aa67293b926ab/docs/desktop.gif)
 
 
 ### Mobile
