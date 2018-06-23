@@ -1,15 +1,16 @@
 import React from 'react'
 import cls from 'classnames'
 import { findDOMNode } from 'react-dom'
-import { throttle } from 'lodash/fp'
+import { throttle, flow } from 'lodash/fp'
 import { DropTarget, DragSource, DragLayer } from 'react-dnd'
-import { compose } from "recompose"
+import { compose, mapProps, pure } from "recompose"
 import { CardItem } from './Card.Item'
 import css from './Card.Item.scss'
 
 const CardDragName = "CARD"
 
-@DropTarget(CardDragName, {
+
+const target = DropTarget(CardDragName, {
   //throttle for prevent call in exceeed.
   hover: throttle(100, (target, monitor, component) => {
     const source = monitor.getItem()
@@ -50,10 +51,10 @@ const CardDragName = "CARD"
       return
     }
 
-    target.moving(source, target)
-
+    const sourcePosition = source.position
     // to prevent calling the setState() of the component multiple times, I make the mutation passing the new position to the source element
     source.position = target.position
+    target.onCardMoving({ ...source, position: sourcePosition }, target)
   }),
   drop(props) {
     props.onEndDrag && props.onEndDrag(props.id)
@@ -62,7 +63,9 @@ const CardDragName = "CARD"
     connectDropTarget: connect.dropTarget(),
   })
 )
-@DragSource(CardDragName, {
+
+
+const source = DragSource(CardDragName, {
   beginDrag(props, _, component) {
     const boundingRect = findDOMNode(component).getBoundingClientRect()
     props.onBeginDrag && props.onBeginDrag(props.id)
@@ -78,56 +81,63 @@ const CardDragName = "CARD"
     connectDragSource: connect.dragSource()
   })
 )
-export class CardItemDraggable extends React.PureComponent {
 
+
+window.compose = compose
+
+export const CardItemDraggable = compose(
+  source,
+  target
+)(class Card extends React.PureComponent {
   render() {
-    const { connectDragSource, connectDropTarget, connectDragPreview, isDragging, className, ...props } = this.props
-    const classes = cls(className, { [css.dragging]: isDragging } )
-    return compose(
-      connectDropTarget,
-      connectDragSource
-    )(
-      <div style={{ width: '100%' }}>
-        <CardItem className={classes} {...props} />
-      </div>
+    const { connectDragSource, connectDropTarget, isDragging, className, ...props } = this.props
+
+    return connectDropTarget(
+      connectDragSource(
+        <div style={{ width: '100%' }}>
+          <CardItem className={cls(className, { [css.dragging]: isDragging })} {...props} />
+        </div>
+      )
     )
   }
-}
+})
 
-function getItemStyles(currentOffset) {
-  if (!currentOffset) {
-      return {
-          display: 'none'
-      };
+
+function getItemStyles(x, y) {
+  if (!x) {
+    return { display: 'none' }
   }
-
-  var x = currentOffset.x;
-  var y = currentOffset.y;
-  var transform = `translate(${x}px, ${y}px) rotate(0.01turn)`;
 
   return {
     pointerEvents: 'none',
-    transform: transform,
-    WebkitTransform: transform
+    transform: `translate(${x}px, ${y}px) rotate(0.01turn)`,
   };
 }
 
-@DragLayer((monitor) => {
-  var item = monitor.getItem();
-  return {
-      ...item,
-      currentOffset: monitor.getSourceClientOffset()
-  }
-})
-export class CardItemPreview extends React.Component {
+
+export const CardItemPreview = compose(
+  DragLayer((monitor) => {
+    const item = monitor.getItem()
+    const offset = monitor.getSourceClientOffset() || {}
+    return {
+        ...item,
+        x: offset.x,
+        y: offset.y
+    }
+  }),
+  mapProps(({ x, y, ...props }) => ({
+    ...props,
+    style: getItemStyles(x, y)
+  }))
+)(class Preview extends React.PureComponent {
 
   render() {
-    const { currentOffset, boundingRect, ...props } = this.props
+    const { currentOffset, boundingRect, style, ...props } = this.props
     return (
-      <div className={css.card_preview} style={getItemStyles(currentOffset)}>
+      <div className={css.card_preview} style={style}>
         <CardItem {...props} style={{ width: boundingRect?.width }} />
       </div>
     )
   }
 
-}
+})

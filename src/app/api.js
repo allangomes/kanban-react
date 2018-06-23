@@ -3,7 +3,7 @@ import urlJoin from 'url-join'
 import { connect } from 'react-refetch'
 
 export const api = axios.create({
-  baseURL: "http://192.168.25.7:4000/api"
+  baseURL: "http://192.168.25.7:3000"
 })
 
 export const refetch = connect.defaults({
@@ -22,10 +22,10 @@ export const refetch = connect.defaults({
 })
 
 export const urls = {
-  boards: `/board`,
-  board: (boardId) => `/board/${boardId}`,
-  lists: (boardId) => `/board/${boardId}/list`,
-  list: (boardId, id) => `/board/${boardId}/list/${id}`,
-  cards: (boardId) => `/board/${boardId}/card`,
-  card: (boardId, id) => `/board/${boardId}/card/${id}`
+  boards: `/boards`,
+  board: (boardId) => `/boards/${boardId}`,
+  lists: (boardId) => `/boards/${boardId}/lists`,
+  list: (boardId, id) => `/boards/${boardId}/lists/${id}`,
+  cards: (boardId) => `/boards/${boardId}/cards`,
+  card: (boardId, id) => `/boards/${boardId}/cards/${id}`
 }

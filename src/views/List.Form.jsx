@@ -1,5 +1,6 @@
 import React from 'react'
 import { withFormik } from 'formik'
+import { compose } from 'recompose'
 import { Link, withRouter } from 'react-router-dom'
 import { Modal, Button, Icon } from 'semantic-ui-react'
 import { ListForm as Form } from 'components/list'
@@ -18,30 +19,25 @@ async function saveList(list, { setSubmitting, setErrors, resetForm, props }) {
   }
 }
 
-@withRouter
-@withFormik({
-  mapPropsToValues: ({ boardId }) => ({ color: 'grey', boardId }),
-  handleSubmit: saveList
-})
-export class ListForm extends React.PureComponent {
-
-  render() {
-    const { backTo, handleSubmit, isSubmitting, ...props } = this.props
-    return (
-      <Modal open style={{ top: 30 }}>
-        <Modal.Header icon='browser' content="New List" />
-        <Modal.Content>
-          <Form {...props} />
-        </Modal.Content>
-        <Modal.Actions>
-          <Link to={backTo || '..'}>
-            <Button><Icon name='close' /> Cancel</Button>
-          </Link>
-          <Button type="submit" onClick={handleSubmit} positive disabled={isSubmitting}>
-            <Icon name='checkmark' /> Save
-          </Button>
-        </Modal.Actions>
-      </Modal>
-    )
-  }
-}
+export const ListForm = compose(
+  withRouter,
+  withFormik({
+    mapPropsToValues: ({ boardId }) => ({ color: 'grey', boardId }),
+    handleSubmit: saveList
+  })
+)(({ backTo, handleSubmit, isSubmitting, ...props }) => 
+  <Modal open style={{ top: 30 }}>
+    <Modal.Header icon='browser' content="New List" />
+    <Modal.Content>
+      <Form {...props} />
+    </Modal.Content>
+    <Modal.Actions>
+      <Link to={backTo || '..'}>
+        <Button><Icon name='close' /> Cancel</Button>
+      </Link>
+      <Button type="submit" onClick={handleSubmit} positive disabled={isSubmitting}>
+        <Icon name='checkmark' /> Save
+      </Button>
+    </Modal.Actions>
+  </Modal>
+)

@@ -18,8 +18,8 @@
 .list {
   display: flex;
   margin: 5px !important;
+  flex: 1 1 auto;
   min-width: 250px !important;
-  flex: 1 1 1;
   width: 400px;
   max-width: 400px;
 
