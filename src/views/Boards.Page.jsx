@@ -1,7 +1,7 @@
 import React from 'react'
-import { Route, Link, withRouter } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import { map } from 'lodash/fp'
-import { Segment, Label, Card, Button, Grid, Breadcrumb, BreadcrumbSection } from 'semantic-ui-react'
+import { Segment, Label, Card, Button, Grid, Breadcrumb } from 'lib/semantic'
 import { compose, withHandlers } from 'recompose'
 import { BoardItem } from 'components/board'
 import { refetch, urls } from 'app/api'
@@ -18,13 +18,8 @@ export const BoardsPage = compose(
     refreshBoards: () => ({
       boards: { url: urls.boards, force: true }
     })
-  })),
-  withHandlers({
-    renderForm: ({ match, refreshBoards }) => () => (
-      <BoardForm backTo={match.path} onSaveSuccess={refreshBoards} />
-    )
-  })
-)(({ boards, renderForm }) =>
+  }))
+)(({ boards, match, refreshBoards }) =>
   <>
     <Segment.Group raised className={css.root}>
       <Segment>
@@ -51,6 +46,8 @@ export const BoardsPage = compose(
         </Card.Group>
       </Segment>
     </Segment.Group>
-    <Route path="/boards/new" render={renderForm} />
+    <Route path="/boards/new" render={() => (
+      <BoardForm backTo={match.path} onSaveSuccess={refreshBoards} />
+    )} />
   </>
 )

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Button, Dropdown } from 'semantic-ui-react'
+import { Button, Dropdown, COLORS } from 'lib/semantic'
 import { withHandlers } from 'recompose'
-import { COLORS } from 'semantic-ui-react/dist/es/lib/SUI'
+
 
 const colorOptions = COLORS.map(color => ({
   key: color,

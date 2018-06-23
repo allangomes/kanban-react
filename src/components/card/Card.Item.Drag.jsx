@@ -82,9 +82,6 @@ const source = DragSource(CardDragName, {
   })
 )
 
-
-window.compose = compose
-
 export const CardItemDraggable = compose(
   source,
   target

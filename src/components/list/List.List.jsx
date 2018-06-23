@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Segment, Button } from 'semantic-ui-react'
+import { Segment, Button } from 'lib/semantic'
 import css from './List.List.scss'
 
 export const ListList = ({ loading, children, title, color, hrefNewCard }) => (

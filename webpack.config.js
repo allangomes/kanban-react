@@ -5,7 +5,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 module.exports = {
   entry: [
     'react-hot-loader/patch',
-    '@babel/polyfill',
+    '@babel/polyfill',    
     './vendor.scss',
     './index.jsx',
   ],

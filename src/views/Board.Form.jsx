@@ -1,7 +1,8 @@
 import React from 'react'
 import { withFormik } from 'formik'
+import { compose } from 'recompose'
 import { Link, withRouter } from 'react-router-dom'
-import { Modal, Button, Icon } from 'semantic-ui-react'
+import { Modal, Button, Icon } from 'lib/semantic'
 import { BoardForm as Form } from 'components/board'
 import { api, urls } from 'app/api'
 
@@ -18,30 +19,25 @@ async function saveBoard(board, { setSubmitting, setErrors, resetForm, props }) 
   }
 }
 
-@withRouter
-@withFormik({
-  mapPropsToValues: () => ({ color: 'grey' }),
-  handleSubmit: saveBoard
-})
-export class BoardForm extends React.PureComponent {
-
-  render() {
-    const { location, handleSubmit, isSubmitting, ...props } = this.props
-    return (
-      <Modal open style={{ top: 30 }}>
-        <Modal.Header icon='browser' content="New Board" />
-        <Modal.Content>
-          <Form {...props} />
-        </Modal.Content>
-        <Modal.Actions>
-          <Link to={location?.query?.backTo || '..'}>
-            <Button><Icon name='close' /> Cancel</Button>
-          </Link>
-          <Button type="submit" onClick={handleSubmit} positive disabled={isSubmitting}>
-            <Icon name='checkmark' /> Save
-          </Button>
-        </Modal.Actions>
-      </Modal>
-    )
-  }
-}
+export const BoardForm = compose(
+  withRouter,
+  withFormik({
+    mapPropsToValues: () => ({ color: 'grey' }),
+    handleSubmit: saveBoard
+  })
+)(({ location, handleSubmit, isSubmitting, ...props }) => (
+  <Modal open style={{ top: 30 }}>
+    <Modal.Header icon='browser' content="New Board" />
+    <Modal.Content>
+      <Form {...props} />
+    </Modal.Content>
+    <Modal.Actions>
+      <Link to={location?.query?.backTo || '..'}>
+        <Button><Icon name='close' /> Cancel</Button>
+      </Link>
+      <Button type="submit" onClick={handleSubmit} positive disabled={isSubmitting}>
+        <Icon name='checkmark' /> Save
+      </Button>
+    </Modal.Actions>
+  </Modal>
+))

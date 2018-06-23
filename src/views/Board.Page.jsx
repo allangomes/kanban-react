@@ -2,9 +2,9 @@ import React from 'react'
 import { Link, Route, withRouter } from 'react-router-dom'
 import { map, sortBy, prop, filter, throttle } from 'lodash/fp'
 import { refetch, urls } from 'app/api'
-import { compose, mapProps, withHandlers, withState, lifecycle, pure } from 'recompose'
+import { compose, mapProps, withHandlers, withState, lifecycle } from 'recompose'
 import { from } from 'seamless-immutable'
-import { Segment, Label, Breadcrumb, Button, Grid } from 'semantic-ui-react'
+import { Segment, Label, Breadcrumb, Button, Grid } from 'lib/semantic'
 import { ListList, DroppableSortableCardList } from 'components/list'
 import css from './Board.Page.scss'
 import { CardForm } from './Card.Form'
@@ -31,9 +31,6 @@ const Lists = (({ sort, boardId, lists, cards, draggingId, onCardMoving, onCardM
     )
   })(lists.value?.data)
 })
-
-
-window.from = from
 
 export const BoardPage = compose(
   withRouter,

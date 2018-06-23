@@ -2,7 +2,7 @@ import React from 'react'
 import { withFormik } from 'formik'
 import { compose } from 'recompose'
 import { Link, withRouter } from 'react-router-dom'
-import { Modal, Button, Icon } from 'semantic-ui-react'
+import { Modal, Button, Icon } from 'lib/semantic'
 import { ListForm as Form } from 'components/list'
 import { api, urls } from 'app/api'
 

@@ -1,8 +1,7 @@
 import React from 'react'
 import { CardItemDraggable, CardItemPreview } from 'components/card/Card.Item.Drag'
-import { compose, branch, renderComponent, pure, withProps, defaultProps } from 'recompose'
+import { compose, defaultProps } from 'recompose'
 import { DropTarget } from 'react-dnd'
-import { throttle } from 'lodash/fp'
 
 export const DroppableSortableCardList = compose(
   defaultProps({
@@ -22,7 +21,7 @@ export const DroppableSortableCardList = compose(
         source.position = target.cards.length + 1
       }
     }
-  }, (connect, monitor) => ({
+  }, (connect) => ({
     connectDropTarget: connect.dropTarget()
   }))
 )(class WrapperDroppableSortableCardList extends React.PureComponent {

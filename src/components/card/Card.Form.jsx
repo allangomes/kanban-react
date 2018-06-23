@@ -1,6 +1,6 @@
 import React from 'react'
 import { Prompt } from 'react-router-dom'
-import { Form } from 'semantic-ui-react'
+import { Form } from 'lib/semantic'
 import { ColorSelect } from 'components/shared'
 
 export const CardForm = ({ dirty, handleSubmit, handleChange, values, ...props }) => (

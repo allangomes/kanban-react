@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card } from 'semantic-ui-react'
+import { Card } from 'lib/semantic'
 import css from './Board.Item.scss'
 
 export const BoardItem = ({ id, color, title, description, href }) => (
