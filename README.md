@@ -10,9 +10,9 @@ The Kanban Application with multiple backend languages.
 ### Mobile
 ![Alt Text](https://github.com/allangomessl/kanban-react/blob/master/docs/mobile.gif?raw=true)
 
+-------
 
 ### Performance
-
 #### Unecessary Re-Renders
 ![Alt Text](https://github.com/allangomessl/kanban-react/blob/master/docs/rerender.gif?raw=true)
 - How can you view in above gif, using `Why Did Update` to monitor unnecessary re-renders, we can conclude that the application is extremely performatic.
