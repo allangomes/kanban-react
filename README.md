@@ -1,4 +1,12 @@
-# kanban-react
+# kanban-react (archived)
+
+This Sample Project was **archived** in favor of **React Hooks**, **new Context API** and best pratices added recently
+
+<br />
+<br />
+<br />
+
+
 The Kanban Application with multiple backend languages.
 
 *this project is still under maintenance*
